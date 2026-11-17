@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منوی دیجیتال کافه لاوین | Lavin Cafe</title>
+
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-main: #070a12;
+            --bg-surface: rgba(15, 23, 42, 0.85);
+            --bg-glass: rgba(20, 29, 49, 0.72);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(245, 158, 11, 0.35);
+            --neon-amber: #f59e0b;
+            --amber-dark: #d97706;
+            --neon-cyan: #06b6d4;
+            --neon-green: #10b981;
+            --neon-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 4px; }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 15% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.07) 0%, transparent 45%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        .app-header {
+            background: rgba(7, 10, 18, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            padding: 14px 18px;
+        }
+
+        .header-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--neon-amber), var(--amber-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 19px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+        }
+
+        .table-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 158, 11, 0.14);
+            color: var(--neon-amber);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 16px 16px 30px;
+        }
+
+        .spotlight-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(15, 23, 42, 0.92) 60%, rgba(6, 182, 212, 0.12) 100%);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .spotlight-card:active { transform: scale(0.985); }
+
+        .spotlight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--neon-amber);
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 12px 42px 12px 38px;
+            color: #fff;
+            font-size: 13px;
+            transition: all 0.25s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-amber);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .clear-search {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-muted);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 11px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .categories-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 2px 12px;
+            margin-bottom: 14px;
+            scrollbar-width: none;
+        }
+        .categories-bar::-webkit-scrollbar { display: none; }
+
+        .cat-chip {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cat-chip.active {
+            background: linear-gradient(135deg, var(--neon-amber), var(--amber-dark));
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 15px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: cardFadeUp 0.35s ease backwards;
+        }
+
+        .item-card:hover {
+            border-color: rgba(245, 158, 11, 0.35);
+            background: rgba(24, 34, 58, 0.85);
+        }
+
+        .item-card:active { transform: scale(0.985); }
+        .item-card.unavailable { opacity: 0.58; }
+
+        @keyframes cardFadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .item-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--neon-amber);
+            flex-shrink: 0;
+        }
+
+        .item-info { flex: 1; min-width: 0; }
+
+        .item-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .psy-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-hot { background: rgba(245, 158, 11, 0.16); color: var(--neon-amber); }
+        .badge-cyan { background: rgba(6, 182, 212, 0.16); color: var(--neon-cyan); }
+        .badge-out { background: rgba(244, 63, 94, 0.16); color: var(--neon-rose); }
+
+        .item-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .item-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .item-price-col {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .price-tag {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--neon-amber);
+        }
+
+        .price-unit {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .detail-hint {
+            font-size: 10px;
+            color: var(--neon-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 3px 8px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 6, 12, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .modal-backdrop { align-items: center; }
+        }
+
+        .modal-backdrop.active { display: flex; }
+
+        .detail-sheet {
+            background: linear-gradient(180deg, #0f172a 0%, #090d16 100%);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            border-radius: 26px;
+            width: 100%;
+            max-width: 460px;
+            padding: 22px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+            animation: sheetUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes sheetUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .option-group-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 14px 0 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .option-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .opt-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 7px 12px;
+            border-radius: 10px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.18s;
+        }
+
+        .opt-pill.selected {
+            background: rgba(245, 158, 11, 0.18);
+            border-color: var(--neon-amber);
+            color: var(--neon-amber);
+        }
+
+        .close-sheet-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, var(--neon-amber), var(--amber-dark));
+            color: #000;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .footer-box {
+            text-align: center;
+            margin-top: 34px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-box">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div>
+                    <h1 style="font-size:15px; font-weight:900; color:#fff;">کافه لاوین</h1>
+                    <span style="font-size:10px; color:var(--text-muted); display:block;">منوی دیجیتال و هوشمند</span>
+                </div>
+            </div>
+            <div id="tableBadgeContainer"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="baristaSpotlightContainer"></div>
+
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="menuSearchInput" class="search-input" placeholder="جستجو در نوشیدنی‌ها، کیک‌ها و منو..." oninput="handleSearchInput()">
+            <button type="button" id="clearSearchBtn" class="clear-search" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="categories-bar" id="categoriesNav"></div>
+
+        <div class="section-header">
+            <h2 id="currentCategoryTitle" style="font-size:14px; font-weight:800; color:#fff;">همه آیتم‌های منو</h2>
+            <span id="itemsCountBadge" style="font-size:11px; color:var(--text-muted);">۰ آیتم</span>
+        </div>
+
+        <div class="menu-list" id="menuItemsContainer"></div>
+
+        <div class="footer-box">
+            <p style="color:#fff; font-weight:700; margin-bottom:4px;">لحظات خوشی را در کافه لاوین برای شما آرزومندیم</p>
+            <p>ساعات پذیرایی: ۸ صبح الی ۱۲ شب</p>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="itemDetailModal" onclick="if(event.target === this) closeItemModal()">
+        <div class="detail-sheet" id="detailSheetContent"></div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const SUPABASE_URL = 'https://hvhgonsbelsdfzilztht.supabase.co';
+        const SUPABASE_ANON_KEY = 'Sb_publishable_peKpXNkCwk4dZpGm2UKa5w_CK3ZG8X4';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const lavinSyncChannel = new BroadcastChannel('lavin_cafe_sync_channel');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const tableNum = urlParams.get('table');
+        document.getElementById('tableBadgeContainer').innerHTML = tableNum
+            ? `<div class="table-pill"><i class="fa-solid fa-chair"></i> میز شماره ${tableNum}</div>`
+            : `<div class="table-pill"><i class="fa-solid fa-sparkles"></i> خوش آمدید</div>`;
+
+        const defaultCategories = ['بار گرم', 'بار سرد', 'کیک و دسر', 'غذا و اسنک'];
+        const defaultProducts = [
+            { id: '1', name: 'اسپرسو دبل لاوین', category: 'بار گرم', price: 75000, status: 'موجود', desc: 'عصاره خالص ۱۰۰٪ دانه‌های عربیکا با رست مدیوم و کرمای غلیظ' },
+            { id: '2', name: 'کافه لاته مخصوص', category: 'بار گرم', price: 95000, status: 'موجود', desc: 'اسپرسو دبل به همراه شیر بخار داده شده مخملی و لاته آرت' },
+            { id: '3', name: 'آیس کارامل ماکیاتو', category: 'بار سرد', price: 115000, status: 'موجود', desc: 'ترکیب خنک اسپرسو، شیر تازه، یخ و سس کارامل دست‌ساز' },
+            { id: '4', name: 'کیک شکلاتی خیس', category: 'کیک و دسر', price: 120000, status: 'موجود', desc: 'کیک اسفنجی شکلاتی تازه همراه با گاناش گرم شکلات تلخ' }
+        ];
+
+        let categories = JSON.parse(localStorage.getItem('cafe_categories')) || defaultCategories;
+        let products = JSON.parse(localStorage.getItem('cafe_products')) || defaultProducts;
+        let activeCategory = 'همه';
+        let searchQuery = '';
+
+        async function loadProductsFromSupabase() {
+            try {
+                const { data, error } = await supabase.from('cafe_lavin').select('*');
+                if (!error && data && data.length > 0) {
+                    products = data.map(item => ({
+                        id: String(item.id),
+                        name: item.name || '',
+                        category: item.category || 'بار گرم',
+                        price: Number(item.price) || 0,
+                        status: item.status || 'موجود',
+                        desc: item.desc || ''
+                    }));
+                    products.forEach(p => {
+                        if (p.category && !categories.includes(p.category)) {
+                            categories.push(p.category);
+                        }
+                    });
+                    localStorage.setItem('cafe_products', JSON.stringify(products));
+                    localStorage.setItem('cafe_categories', JSON.stringify(categories));
+                }
+                renderAll();
+            } catch (err) {
+                console.error('Supabase fetch error:', err);
+                renderAll();
+            }
+        }
+
+        supabase
+            .channel('customer:cafe_lavin')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'cafe_lavin' }, () => {
+                loadProductsFromSupabase();
+            })
+            .subscribe();
+
+        lavinSyncChannel.onmessage = (event) => {
+            if (event.data && event.data.type === 'UPDATE_MENU') {
+                const storedCats = JSON.parse(localStorage.getItem('cafe_categories'));
+                const storedProds = JSON.parse(localStorage.getItem('cafe_products'));
+                if (storedCats) categories = storedCats;
+                if (storedProds) products = storedProds;
+                renderAll();
+            }
+        };
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'cafe_products' || e.key === 'cafe_categories') {
+                const storedCats = JSON.parse(localStorage.getItem('cafe_categories'));
+                const storedProds = JSON.parse(localStorage.getItem('cafe_products'));
+                if (storedCats) categories = storedCats;
+                if (storedProds) products = storedProds;
+                renderAll();
+            }
+        });
+
+        function renderAll() {
+            if (activeCategory !== 'همه' && !categories.includes(activeCategory)) {
+                activeCategory = 'همه';
+            }
+            renderBaristaSpotlight();
+            renderCategoriesNav();
+            renderMenuItems();
+        }
+
+        function getCategoryIcon(cat) {
+            if (cat.includes('گرم') || cat.includes('قهوه')) return 'fa-mug-hot';
+            if (cat.includes('سرد') || cat.includes('آیس') || cat.includes('نوشیدنی')) return 'fa-glass-water';
+            if (cat.includes('کیک') || cat.includes('دسر')) return 'fa-cake-candles';
+            if (cat.includes('غذا') || cat.includes('اسنک') || cat.includes('صبحانه')) return 'fa-utensils';
+            return 'fa-star';
+        }
+
+        function renderBaristaSpotlight() {
+            const container = document.getElementById('baristaSpotlightContainer');
+            const availableItems = products.filter(p => p.status === 'موجود');
+            const featured = availableItems[0] || products[0];
+
+            if (!featured) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="spotlight-card" onclick="openItemDetail('${featured.id}')">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+                        <div style="flex:1;">
+                            <span class="spotlight-tag"><i class="fa-solid fa-crown"></i> پیشنهاد ویژه باریستا</span>
+                            <h2 style="font-size:16px; font-weight:900; color:#fff; margin-bottom:5px;">${featured.name}</h2>
+                            <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-bottom:10px;">
+                                ${featured.desc || 'انتخاب ویژه سرآشپز و باریستای کافه لاوین با تازه‌ترین مواد اولیه'}
+                            </p>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span style="font-size:15px; font-weight:900; color:var(--neon-amber);">
+                                    ${new Intl.NumberFormat('fa-IR').format(featured.price)} <span style="font-size:10px; color:var(--text-muted);">تومان</span>
+                                </span>
+                                <span style="font-size:11px; color:var(--neon-cyan); font-weight:700;">
+                                    مشاهده جزئیات و انتخاب طعم <i class="fa-solid fa-chevron-left" style="font-size:9px;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="width:56px; height:56px; border-radius:16px; background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.4); display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--neon-amber); flex-shrink:0;">
+                            <i class="fa-solid ${getCategoryIcon(featured.category)}"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCategoriesNav() {
+            const nav = document.getElementById('categoriesNav');
+            let html = `
+                <button class="cat-chip ${activeCategory === 'همه' ? 'active' : ''}" onclick="selectCategory('همه')">
+                    <i class="fa-solid fa-border-all"></i> همه
+                </button>
+            `;
+
+            categories.forEach(cat => {
+                html += `
+                    <button class="cat-chip ${activeCategory === cat ? 'active' : ''}" onclick="selectCategory('${cat}')">
+                        <i class="fa-solid ${getCategoryIcon(cat)}"></i> ${cat}
+                    </button>
+                `;
+            });
+            nav.innerHTML = html;
+        }
+
+        window.selectCategory = function(cat) {
+            activeCategory = cat;
+            renderCategoriesNav();
+            renderMenuItems();
+        }
+
+        window.handleSearchInput = function() {
+            const input = document.getElementById('menuSearchInput');
+            searchQuery = input.value.trim().toLowerCase();
+            document.getElementById('clearSearchBtn').style.display = searchQuery ? 'flex' : 'none';
+            renderMenuItems();
+        }
+
+        window.clearSearch = function() {
+            document.getElementById('menuSearchInput').value = '';
+            searchQuery = '';
+            document.getElementById('clearSearchBtn').style.display = 'none';
+            renderMenuItems();
+        }
+
+        function renderMenuItems() {
+            const container = document.getElementById('menuItemsContainer');
+            const titleEl = document.getElementById('currentCategoryTitle');
+            const countEl = document.getElementById('itemsCountBadge');
+
+            titleEl.innerText = searchQuery ? `نتایج جستجو برای «${searchQuery}»` : (activeCategory === 'همه' ? 'همه آیتم‌های منو' : activeCategory);
+
+            const filtered = products.filter(item => {
+                const matchCat = (activeCategory === 'همه') || (item.category === activeCategory);
+                const matchSearch = !searchQuery || 
+                    item.name.toLowerCase().includes(searchQuery) || 
+                    (item.desc && item.desc.toLowerCase().includes(searchQuery)) ||
+                    item.category.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            countEl.innerText = `${new Intl.NumberFormat('fa-IR').format(filtered.length)} آیتم`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:45px 20px; background:var(--bg-surface); border-radius:18px; border:1px solid var(--border-subtle);">
+                        <i class="fa-solid fa-mug-saucer" style="font-size:32px; color:var(--text-muted); margin-bottom:10px; opacity:0.5;"></i>
+                        <p style="font-size:13px; color:var(--text-muted);">آیتمی مطابق جستجوی شما پیدا نشد.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((item, idx) => {
+                const isAvailable = item.status === 'موجود';
+                let psyTag = '';
+                if (!isAvailable) {
+                    psyTag = `<span class="psy-badge badge-out"><i class="fa-solid fa-circle-xmark"></i> تمام شده</span>`;
+                } else if (idx === 0) {
+                    psyTag = `<span class="psy-badge badge-hot"><i class="fa-solid fa-fire"></i> پرفروش</span>`;
+                } else if (item.category.includes('سرد')) {
+                    psyTag = `<span class="psy-badge badge-cyan"><i class="fa-solid fa-snowflake"></i> خنک و دلچسب</span>`;
+                }
+
+                return `
+                    <div class="item-card ${!isAvailable ? 'unavailable' : ''}" style="animation-delay: ${Math.min(idx * 0.04, 0.3)}s" onclick="openItemDetail('${item.id}')">
+                        <div class="item-icon-box">
+                            <i class="fa-solid ${getCategoryIcon(item.category)}"></i>
+                        </div>
+                        <div class="item-info">
+                            <div class="item-badges-row">
+                                <span style="font-size:10px; color:var(--text-muted);">${item.category}</span>
+                                ${psyTag}
+                            </div>
+                            <h3 class="item-name">${item.name}</h3>
+                            <p class="item-desc">${item.desc || 'تهیه شده با بهترین مواد اولیه در کافه لاوین'}</p>
+                        </div>
+                        <div class="item-price-col">
+                            <div>
+                                <div class="price-tag">${new Intl.NumberFormat('fa-IR').format(item.price)}</div>
+                                <div class="price-unit">تومان</div>
+                            </div>
+                            <span class="detail-hint">جزئیات <i class="fa-solid fa-angle-left"></i></span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.openItemDetail = function(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+
+            const isAvailable = item.status === 'موجود';
+            const isCoffeeOrDrink = item.category.includes('گرم') || item.category.includes('سرد') || item.name.includes('قهوه') || item.name.includes('لاته') || item.name.includes('اسپرسو');
+
+            let customOptionsHtml = '';
+            if (isCoffeeOrDrink) {
+                customOptionsHtml = `
+                    <div class="option-group-title"><i class="fa-solid fa-sliders text-amber-400"></i> انتخاب سبک سرو (جهت اعلام به باریستا):</div>
+                    <div class="option-pills" id="milkOptions">
+                        <button type="button" class="opt-pill selected" onclick="selectOptionPill(this)">شیر معمولی</button>
+                        <button type="button" class="opt-pill" onclick="selectOptionPill(this)">شیر کم‌چرب</button>
+                        <button type="button" class="opt-pill" onclick="selectOptionPill(this)">شیر نارگیل / بادام</button>
+                    </div>
+                    <div class="option-group-title"><i class="fa-solid fa-cubes-stacked text-cyan-400"></i> میزان شیرینی / طعم:</div>
+                    <div class="option-pills" id="sweetOptions">
+                        <button type="button" class="opt-pill selected" onclick="selectOptionPill(this)">استاندارد</button>
+                        <button type="button" class="opt-pill" onclick="selectOptionPill(this)">بدون شکر (تلخ)</button>
+                        <button type="button" class="opt-pill" onclick="selectOptionPill(this)">شیرین‌تر</button>
+                    </div>
+                `;
+            } else {
+                customOptionsHtml = `
+                    <div class="option-group-title"><i class="fa-solid fa-utensils text-amber-400"></i> نحوه سرو پیشنهادی:</div>
+                    <div class="option-pills">
+                        <button type="button" class="opt-pill selected" onclick="selectOptionPill(this)">سرو تازه در سالن</button>
+                        <button type="button" class="opt-pill" onclick="selectOptionPill(this)">بسته‌بندی بیرون‌بر</button>
+                    </div>
+                `;
+            }
+
+            document.getElementById('detailSheetContent').innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:52px; height:52px; border-radius:16px; background:rgba(245,158,11,0.16); border:1px solid rgba(245,158,11,0.35); display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--neon-amber);">
+                            <i class="fa-solid ${getCategoryIcon(item.category)}"></i>
+                        </div>
+                        <div>
+                            <span style="font-size:11px; color:var(--neon-cyan); font-weight:700;">${item.category}</span>
+                            <h3 style="font-size:17px; font-weight:900; color:#fff; margin-top:2px;">${item.name}</h3>
+                        </div>
+                    </div>
+                    <button type="button" onclick="closeItemModal()" style="background:rgba(255,255,255,0.08); border:none; color:#fff; width:32px; height:32px; border-radius:10px; cursor:pointer;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.7; background:rgba(0,0,0,0.3); padding:12px 14px; border-radius:14px; border:1px solid var(--border-subtle);">
+                    ${item.desc || 'این آیتم با تازه‌ترین مواد اولیه و دستور اختصاصی کافه لاوین آماده می‌شود.'}
+                </p>
+
+                ${customOptionsHtml}
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.12);">
+                    <div>
+                        <span style="font-size:11px; color:var(--text-muted); display:block;">قیمت سرو:</span>
+                        <strong style="font-size:18px; font-weight:900; color:var(--neon-amber);">
+                            ${new Intl.NumberFormat('fa-IR').format(item.price)} <span style="font-size:11px;">تومان</span>
+                        </strong>
+                    </div>
+                    <span class="psy-badge ${isAvailable ? 'badge-hot' : 'badge-out'}" style="padding:5px 12px; font-size:11px;">
+                        ${isAvailable ? 'آماده سفارش به باریستا' : 'در حال حاضر تمام شده'}
+                    </span>
+                </div>
+
+                <button type="button" class="close-sheet-btn" onclick="closeItemModal()">بستن و بازگشت به منو</button>
+            `;
+
+            document.getElementById('itemDetailModal').classList.add('active');
+        }
+
+        window.selectOptionPill = function(btn) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.opt-pill').forEach(el => el.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        window.closeItemModal = function() {
+            document.getElementById('itemDetailModal').classList.remove('active');
+        }
+
+        loadProductsFromSupabase();
+    </script>
+</body>
+</html>
